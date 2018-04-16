@@ -5,17 +5,19 @@ from time import sleep
 from fractions import Fraction
 from trackingbot import bot
 from config import TEST_TRACKING_CHANNEL_ID
-from trackingbot.csvs import get_date, get_date_time
+from trackingbot.dates import get_date, get_date_time
+from trackingbot.csvs import start_task
 
 #making changes to add develop branch
 
 @bot.command("echo <text>")
 def echo(text):
 	bot.send_message(Response(TEST_TRACKING_CHANNEL_ID, text=text))
-	
+
 
 @bot.command("start <task_name>")
 def start(task_name):
+	start_task(task_name)
 	bot.send_message(Response(TEST_TRACKING_CHANNEL_ID, text=task_name + " started"))
 	
 @bot.command("finish")
