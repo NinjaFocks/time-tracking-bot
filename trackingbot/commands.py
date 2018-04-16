@@ -6,30 +6,31 @@ from fractions import Fraction
 from trackingbot import bot
 from config import TEST_TRACKING_CHANNEL_ID
 from trackingbot.dates import get_date, get_date_time
-from trackingbot.csvs import start_task
+from trackingbot.csvs import start_task, finish_task
 
 #making changes to add develop branch
 
 @bot.command("echo <text>")
 def echo(text):
-	bot.send_message(Response(TEST_TRACKING_CHANNEL_ID, text=text))
+	return text
 
 
 @bot.command("start <task_name>")
 def start(task_name):
 	start_task(task_name)
-	bot.send_message(Response(TEST_TRACKING_CHANNEL_ID, text=task_name + " started"))
+	return task_name + ' started'
 	
 @bot.command("finish")
 def finish():
-	bot.send_message(Response(TEST_TRACKING_CHANNEL_ID, text="Task finished"))
+	finish_task()
+	return 'Task finished'
 	
 @bot.command("date")
 def date():
 	date = get_date()
-	bot.send_message(Response(TEST_TRACKING_CHANNEL_ID, text=date))
+	return date
 	
 @bot.command("datetime")
 def datetime():
 	datetime = get_date_time()
-	bot.send_message(Response(TEST_TRACKING_CHANNEL_ID, text=datetime))
+	return datetime
