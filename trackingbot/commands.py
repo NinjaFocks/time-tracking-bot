@@ -38,3 +38,9 @@ def datetime():
 @bot.command("summary")
 def summary():
 	return get_summary()
+
+@bot.command("help")
+def help():
+	commands = ''
+	commands += '!start <task_name> - Start a new task\n !finish - Finish current and previous tasks\n !date - Get the current date in DD-MM-YYYY format\n !datetime - Get the current date and time in DD-MM-YYYY HH:MM format\n !summary - Get a summary of today\'s tasks, returns a list of task names and time spent'
+	return commands
