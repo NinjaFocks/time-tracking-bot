@@ -3,6 +3,7 @@ from trackingbot.dates import get_date, get_time
 from pathlib import Path
 import shutil
 from config import CSV_FILE_LOCATION
+from datetime import datetime
 	
 def create_file():
 	date = get_date()
@@ -51,3 +52,25 @@ def finish_task():
 	
 	print('finish_task closed file')
 	shutil.move(tempfile.name, csvFile.name)
+	
+def get_summary():
+	date = get_date()
+	csvLocation = CSV_FILE_LOCATION + date + '.csv'
+	
+	summary = ''
+	
+	with open(csvLocation, 'r', newline='') as csvFile:
+		print('summary opened file')
+		filereader = csv.reader(csvFile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)	
+		for row in filereader:
+			if (row[0] == 'TaskName'):
+				summary = str(row[0]) + ' - ' + 'Time Taken\n'				
+			elif (row[3] == 'InProgress'):
+				summary = summary + row[0] + ' - ' + 'In Progress' + '\n'			 
+			else:
+				time = datetime.strptime(row[2], '%H:%M') - datetime.strptime(row[1], '%H:%M')
+				summary = summary + row[0] + ' - ' + str(time) + '\n'
+	print('summary closed file')	
+	return summary
+			
+		
