@@ -6,7 +6,7 @@ from fractions import Fraction
 from trackingbot import bot
 from config import TEST_TRACKING_CHANNEL_ID
 from trackingbot.dates import get_date, get_date_time
-from trackingbot.csvs import start_task, finish_task
+from trackingbot.csvs import start_task, finish_task, get_summary
 
 #making changes to add develop branch
 
@@ -34,3 +34,7 @@ def date():
 def datetime():
 	datetime = get_date_time()
 	return datetime
+
+@bot.command("summary")
+def summary():
+	return get_summary()
