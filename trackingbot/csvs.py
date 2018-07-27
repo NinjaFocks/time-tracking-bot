@@ -64,13 +64,10 @@ def get_summary():
 		print('summary opened file')
 		filereader = csv.reader(csvFile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)	
 		for row in filereader:
-			if (row[0] == 'TaskName'):
-				summary = str(row[0]) + ' - ' + 'Time Taken\n'				
-			elif (row[3] == 'InProgress'):
+			if (row[3] == 'InProgress'):
 				summary = summary + row[0] + ' - ' + 'In Progress' + '\n'			 
 			else:
-				time = datetime.strptime(row[2], '%H:%M') - datetime.strptime(row[1], '%H:%M')
-				summary = summary + row[0] + ' - ' + str(time) + '\n'
+				summary = summary + row[0] + ' - ' + row[4] + '\n'
 	print('summary closed file')	
 	return summary
 			
