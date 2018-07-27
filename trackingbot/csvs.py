@@ -10,7 +10,7 @@ def create_file():
 	print('creating file')
 	with open(CSV_FILE_LOCATION + date + '.csv', 'w', newline='') as csvFile:		
 		filewriter = csv.writer(csvFile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)		
-		filewriter.writerow(['TaskName', 'StartedTime', 'FinishedTime','Progress'])
+		filewriter.writerow(['TaskName', 'StartedTime', 'FinishedTime','Progress', 'TimeSpent'])
 		csvFile.close()
 	
 		
@@ -27,7 +27,7 @@ def start_task(task_name):
 	with open(CSV_FILE_LOCATION + date + '.csv', 'a', newline='') as csvFile:
 		print('start_task opened file')
 		filewriter = csv.writer(csvFile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)		
-		filewriter.writerow([task_name, time, '', 'InProgress'])		
+		filewriter.writerow([task_name, time, '', 'InProgress', 0])		
 	print('start_task closed file')
 		
 def finish_task():
@@ -46,6 +46,7 @@ def finish_task():
 			if (row[3] == 'InProgress'):
 				row[2] = time
 				row[3] = 'Finished'
+				row[4] = datetime.strptime(time, '%H:%M') - datetime.strptime(row[1], '%H:%M')
 				filewriter.writerow(row)			
 			else: 
 				filewriter.writerow(row)
